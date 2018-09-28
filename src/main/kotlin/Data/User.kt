@@ -5,6 +5,6 @@ import org.springframework.data.annotation.Id
 data class User(
         @Id
         var email: String,
-        var UserName: String,
+        var userName: String,
         var words: ArrayList<Definition>
 )

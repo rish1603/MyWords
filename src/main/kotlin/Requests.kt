@@ -24,6 +24,5 @@ class Requests {
         val wordData : JSONObject = response.jsonObject
         return wordData
     }
-    // I need a method to add this definition to 'definitions'
 
 }
