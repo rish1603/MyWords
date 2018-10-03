@@ -15,13 +15,15 @@ class UserDAO {
         repository.save(User(email,userName, definitions))
     }
 
-    fun addWord(userName: String, word: String, definitions: ArrayList<String>) {
+    fun addWord(userName: String, word: String, definitions: ArrayList<String>):Definition  {
         val user: User = repository.findByUserName(userName)
-        user.words.add(Definition(word, "", definitions))
+        val definition = Definition(word, "", definitions)
+        user.words.add(definition)
         repository.save(user)
+        return definition
     }
 
-    fun getUserData(userName: String) :User {
+    fun getUserData(userName: String):User {
         return repository.findByUserName(userName)
     }
 

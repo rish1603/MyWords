@@ -1,6 +1,7 @@
 package main.kotlin
 
 import com.jayway.jsonpath.JsonPath
+import main.kotlin.Data.Definition
 import main.kotlin.Data.User
 import main.kotlin.Data.UserDAO
 import org.json.JSONObject
@@ -8,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.*
 import java.util.ArrayList
-
-
 
 @RestController
 class Controller {
@@ -23,8 +22,8 @@ class Controller {
     @Value("\${definitions.path}")
     private val definitionsPath: String? = null
 
-    @GetMapping("/{userName}" + "/en" + "/{word}")
-    fun getDefinition(@PathVariable userName: String, @PathVariable word: String): String {
+    @GetMapping("/{userName}" + "/en" + "/{word}", produces = ["application/json"])
+    fun getDefinition(@PathVariable userName: String, @PathVariable word: String): Definition {
         val response: JSONObject = requests.getWordData(word)
         val senses: ArrayList<String> = JsonPath.read(response.toString(), definitionsPath)
 
@@ -33,9 +32,7 @@ class Controller {
         (0 until senses.size).forEach {
             i -> definitions.add(senses[i])
         }
-        userDao.addWord(userName, word, definitions)
-
-        return ""
+        return userDao.addWord(userName, word, definitions)
     }
 
     @GetMapping("/{userName}", produces = ["application/json"])

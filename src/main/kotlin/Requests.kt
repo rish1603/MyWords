@@ -21,8 +21,7 @@ class Requests {
 
     fun getWordData(word: String): JSONObject {
         val response : Response = khttp.get(url.toString() + lang + word, headers= mapOf("app_id" to appID, "app_key" to appKey) as Map<String, String>)
-        val wordData : JSONObject = response.jsonObject
-        return wordData
+        return response.jsonObject
     }
 
 }
