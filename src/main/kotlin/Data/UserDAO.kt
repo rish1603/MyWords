@@ -15,6 +15,17 @@ class UserDAO {
         repository.save(User(email,userName, definitions))
     }
 
+    /**
+     * Used to add word to user collection when initial query is made
+     */
+    fun addWord(userName: String, word: String) {
+        val user: User = repository.findByUserName(userName)
+        val definitions = ArrayList<String>()
+        val definition = Definition(word, "", definitions)
+        user.words.add(definition)
+        repository.save(user)
+    }
+
     fun addWord(userName: String, word: String, definitions: ArrayList<String>):Definition  {
         val user: User = repository.findByUserName(userName)
         val definition = Definition(word, "", definitions)

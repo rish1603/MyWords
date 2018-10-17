@@ -22,22 +22,32 @@ class Controller {
     @Value("\${definitions.path}")
     private val definitionsPath: String? = null
 
+    @Value("\${examples.path}")
+    private val examplesPath: String? = null
+
     @GetMapping("/{userName}" + "/en" + "/{word}", produces = ["application/json"])
-    fun getDefinition(@PathVariable userName: String, @PathVariable word: String): Definition {
+    fun getDefinition(@PathVariable userName: String, @PathVariable word: String): String {
         val response: JSONObject = requests.getWordData(word)
-        val senses: ArrayList<String> = JsonPath.read(response.toString(), definitionsPath)
-
-        val definitions = ArrayList<String>()
-
-        (0 until senses.size).forEach {
-            i -> definitions.add(senses[i])
-        }
-        return userDao.addWord(userName, word, definitions)
+        userDao.addWord(userName, word)
+        return response.toString()
     }
 
     @GetMapping("/{userName}", produces = ["application/json"])
     fun getUserData(@PathVariable userName: String): User {
         return userDao.getUserData(userName)
+    }
+
+    /*
+        Converts Json data to usable ArrayList
+     */
+    fun parseJson(json: ArrayList<String>): ArrayList<String> {
+
+        val list = ArrayList<String>()
+        (0 until json.size).forEach {
+            i -> list.add(json[i])
+        }
+
+        return list
     }
 
 
