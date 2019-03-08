@@ -4,9 +4,12 @@ import com.jayway.jsonpath.JsonPath
 import main.kotlin.Data.Definition
 import main.kotlin.Data.User
 import main.kotlin.Data.UserDAO
+import org.json.HTTP
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.ArrayList
 
@@ -35,6 +38,12 @@ class Controller {
     @GetMapping("/{userName}", produces = ["application/json"])
     fun getUserData(@PathVariable userName: String): User {
         return userDao.getUserData(userName)
+    }
+
+    @GetMapping("/{email}" + "/{userName}")
+    fun createUser(@PathVariable email:String, @PathVariable userName: String): ResponseEntity<String> {
+        userDao.createUser(email, userName)
+        return ResponseEntity(HttpStatus.CREATED)
     }
 
     /*
