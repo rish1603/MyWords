@@ -1,10 +1,7 @@
 package main.kotlin
 
-import com.jayway.jsonpath.JsonPath
-import main.kotlin.Data.Definition
 import main.kotlin.Data.User
 import main.kotlin.Data.UserDAO
-import org.json.HTTP
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -13,6 +10,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.ArrayList
 
+@CrossOrigin
 @RestController
 class Controller {
 
