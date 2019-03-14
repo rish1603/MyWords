@@ -38,6 +38,11 @@ class Controller {
         return userDao.getUserData(userName)
     }
 
+    @GetMapping()
+    fun test(): String {
+        return "test"
+    }
+
     @GetMapping("/{email}" + "/{userName}")
     fun createUser(@PathVariable email:String, @PathVariable userName: String): ResponseEntity<String> {
         userDao.createUser(email, userName)
